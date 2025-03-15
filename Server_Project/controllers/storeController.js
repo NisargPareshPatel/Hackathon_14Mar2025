@@ -1,5 +1,7 @@
 import Store from "../models/storeModel.js"; // Import Store model
 import jwt from "jsonwebtoken";
+import validator from "validator";
+import bcrypt from "bcrypt";
 import Factory from "./factory.js";
 
 // Function to create a JWT token
@@ -50,9 +52,8 @@ const signupStore = async (req, res) => {
       name,
       email,
       password: hash,
-      location: {
-        coordinates: [data.body.long, data.body.lat],
-      },
+      lat,
+      long,
     });
     const token = createToken(store._id);
     const id = store._id;
