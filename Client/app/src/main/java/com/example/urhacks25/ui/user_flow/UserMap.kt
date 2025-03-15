@@ -1,27 +1,38 @@
 package com.example.urhacks25.ui.user_flow
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.Map
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SearchBar
+import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -30,8 +41,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.example.urhacks25.components.user_flow.map.UserMapComponent
 import com.google.android.gms.location.LocationServices
@@ -103,21 +119,63 @@ fun UserMap(
             modifier = Modifier.padding(padding)
         ) { index ->
             if (index == 0) {
-                GoogleMap(
-                    cameraPositionState = cameraPositionState,
-                    modifier = Modifier.fillMaxSize(),
-                    mapColorScheme = ComposeMapColorScheme.DARK,
-                    uiSettings = MapUiSettings(mapToolbarEnabled = true, myLocationButtonEnabled = true, zoomControlsEnabled = true)
-                ) {
-                    for (cluster in clusters) {
-                        Marker(
-                            state = rememberMarkerState(key = cluster.id, position = cluster.coordinates),
-                            title = cluster.name,
-                            onClick = { marker ->
-                                component.onStoreClicked(storeId = cluster.id, storeName = cluster.name)
-                                true
-                            }
+                Box(Modifier.fillMaxSize()) {
+                    GoogleMap(
+                        cameraPositionState = cameraPositionState,
+                        modifier = Modifier.fillMaxSize(),
+                        mapColorScheme = ComposeMapColorScheme.DARK,
+                        uiSettings = MapUiSettings(
+                            mapToolbarEnabled = true,
+                            myLocationButtonEnabled = true,
+                            zoomControlsEnabled = true
                         )
+                    ) {
+                        for (cluster in clusters) {
+                            Marker(
+                                state = rememberMarkerState(
+                                    key = cluster.id,
+                                    position = cluster.coordinates
+                                ),
+                                title = cluster.name,
+                                onClick = { marker ->
+                                    component.onStoreClicked(
+                                        storeId = cluster.id,
+                                        storeName = cluster.name
+                                    )
+                                    true
+                                }
+                            )
+                        }
+                    }
+
+                    Column(
+                        Modifier
+                            .fillMaxWidth()
+                            .align(Alignment.TopCenter)
+                            .background(
+                                Brush.verticalGradient(
+                                    listOf(
+                                        MaterialTheme.colorScheme.scrim.copy(alpha = 0.5f),
+                                        MaterialTheme.colorScheme.scrim.copy(alpha = 0.5f),
+                                        Color.Transparent
+                                    )
+                                )
+                            )
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp)
+                                .statusBarsPadding()
+                                .clip(CircleShape)
+                                .background(MaterialTheme.colorScheme.surface)
+                                .padding(16.dp)
+                        ) {
+                            Icon(Icons.Default.Search, contentDescription = null)
+                            Text("Search...", style = MaterialTheme.typography.bodyLarge)
+                        }
                     }
                 }
             } else {
@@ -128,7 +186,10 @@ fun UserMap(
                                 Text("Directory")
                             }, actions = {
                                 IconButton(onClick = component::onLogoutClicked) {
-                                    Icon(Icons.AutoMirrored.Filled.Logout, contentDescription = null)
+                                    Icon(
+                                        Icons.AutoMirrored.Filled.Logout,
+                                        contentDescription = null
+                                    )
                                 }
                             }
                         )
@@ -140,9 +201,14 @@ fun UserMap(
                                 ListItem(
                                     headlineContent = {
                                         Text(cluster.name)
-                                    }, modifier = Modifier.fillMaxWidth().clickable {
-                                        component.onStoreClicked(storeId = cluster.id, storeName = cluster.name)
-                                    }
+                                    }, modifier = Modifier
+                                        .fillMaxWidth()
+                                        .clickable {
+                                            component.onStoreClicked(
+                                                storeId = cluster.id,
+                                                storeName = cluster.name
+                                            )
+                                        }
                                 )
 
                                 HorizontalDivider()

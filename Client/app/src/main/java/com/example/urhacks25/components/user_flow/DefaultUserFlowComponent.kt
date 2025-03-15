@@ -45,7 +45,7 @@ class DefaultUserFlowComponent(
                         DefaultUserStoreComponent(
                             onBackClicked = ::onBackClicked,
                             onProductClicked = { id ->
-                                navigator.pushNew(Config.Product(productId = id, storeId = config.id))
+                                navigator.pushNew(Product(productId = id, storeId = config.id))
                             },
                             storeId = config.id,
                             storeName = config.name,

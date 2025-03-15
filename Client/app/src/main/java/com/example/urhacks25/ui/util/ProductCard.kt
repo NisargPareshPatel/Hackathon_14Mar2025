@@ -120,7 +120,7 @@ fun BookedProductCard(
 
             ListItem(
                 headlineContent = {
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                         Text(user.firstName)
                         Text(user.lastName)
                     }
