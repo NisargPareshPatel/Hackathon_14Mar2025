@@ -1,5 +1,6 @@
 import Store from "../models/storeModel.js"; // Import Store model
 import jwt from "jsonwebtoken";
+import validator from "validator";
 import Factory from "./factory.js";
 
 // Function to create a JWT token
