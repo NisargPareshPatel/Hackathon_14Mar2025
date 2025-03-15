@@ -1,5 +1,6 @@
 package com.example.urhacks25.ui
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
@@ -13,6 +14,10 @@ fun Root(component: RootComponent) {
     childSlot.child?.let { child ->
         when (val c = child.instance) {
             is RootComponent.Child.Authorization -> AuthFlow(c.component)
+
+            is RootComponent.Child.StoreFlow -> {
+                Text("StoreFlow")
+            }
         }
     }
 }

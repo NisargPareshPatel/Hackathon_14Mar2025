@@ -14,10 +14,11 @@ interface RootComponent {
             val component: AuthFlowComponent
         ): Child
 
-        /*class StoreFlow (
+        class StoreFlow (
             val component: StoreFlowComponent
         ): Child
 
+        /*
         class UserFlow (
             val component: UserFlowComponent
         ): Child*/

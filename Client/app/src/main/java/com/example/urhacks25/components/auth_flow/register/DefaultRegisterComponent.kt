@@ -108,6 +108,7 @@ class DefaultRegisterComponent (
                     long = location.value.longitude.toString(),
                     password = password.value
                 )).onSuccess { r ->
+                    appSettings.id = r.id!!
                     appSettings.token = r.token!!
                     appSettings.isStore = true
                     onSuccess()
@@ -120,6 +121,7 @@ class DefaultRegisterComponent (
                     lastName = lastName.value,
                     password = password.value
                 )).onSuccess { r ->
+                    appSettings.id = r.id!!
                     appSettings.token = r.token!!
                     appSettings.isStore = false
                     onSuccess()

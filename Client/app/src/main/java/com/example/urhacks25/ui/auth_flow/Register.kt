@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.example.urhacks25.components.auth_flow.landing.LandingComponent
 import com.example.urhacks25.components.auth_flow.register.RegisterComponent
+import com.example.urhacks25.ui.util.ErrorDialog
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.maps.model.CameraPosition
@@ -66,15 +67,17 @@ fun Register(
     val username by component.username.subscribeAsState()
     val password by component.password.subscribeAsState()
     val cPassword by component.confirmPassword.subscribeAsState()
-    val sLocation by component.location.subscribeAsState()
     val sName by component.storeName.subscribeAsState()
     val fName by component.firstName.subscribeAsState()
     val lName by component.lastName.subscribeAsState()
     val uPhone by component.phoneNumber.subscribeAsState()
     val asStore by component.registerAsStore.subscribeAsState()
+    val error by component.error.subscribeAsState()
 
     val cameraPositionState = rememberCameraPositionState()
     val ctx = LocalContext.current
+
+    ErrorDialog(error, component::dismissError)
 
     LaunchedEffect(Unit) {
         runCatching {
