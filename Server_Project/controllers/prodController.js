@@ -25,7 +25,6 @@ const createProd = async (req, res) => {
       expiry: req.body.expiry,
       booked: false,
       price: req.body.price,
-      quantity: req.body.quantity,
       store_id: req.body.store_id,
     });
 
@@ -82,16 +81,6 @@ const booked = async (req, res) => {
     );
     if (!product) return res.status(200).json({ message: "Product not found" });
     res.status(200).json(product);
-    if (product.quantity > 1) {
-      // Reduce quantity by 1
-      product.quantity -= 1;
-    } else {
-      // If only 1 left, mark as booked
-      product.booked = true;
-      product.quantity = 0;
-    }
-    await product.save();
-    res.status(200).json({ message: "Product booked successfully", product });
   } catch (err) {
     console.error(err);
     res.status(500).send({ message: "Failed to reserve product" });
