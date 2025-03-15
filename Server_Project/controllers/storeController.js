@@ -30,7 +30,30 @@ const signupStore = async (req, res) => {
   const { name, lat, long, email, password } = req.body;
 
   try {
-    const store = await Factory.createObject("createStore", req);
+    if (!name || !lat || !long || !email || !password) {
+      throw new Error("All fields must be filled");
+    }
+    if (!validator.isEmail(email)) {
+      throw new Error("Email not valid");
+    }
+    if (!validator.isStrongPassword(password)) {
+      throw new Error("Password too weak");
+    }
+
+    const exists = await Store.findOne({ email });
+    if (exists) {
+      throw new Error("Email in use");
+    }
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+    const store = await Store.create({
+      name,
+      email,
+      password: hash,
+      location: {
+        coordinates: [data.body.long, data.body.lat],
+      },
+    });
     const token = createToken(store._id);
     const id = store._id;
     // Respond with store details and token
