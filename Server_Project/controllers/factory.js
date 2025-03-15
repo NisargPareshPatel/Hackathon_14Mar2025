@@ -1,4 +1,4 @@
-import { Car } from "../models/prodModel.js";
+import { Car } from "../models/carModel.js";
 import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import validator from "validator";
