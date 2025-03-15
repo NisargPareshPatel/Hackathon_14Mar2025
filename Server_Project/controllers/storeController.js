@@ -2,7 +2,7 @@ import Store from "../models/storeModel.js"; // Import Store model
 import jwt from "jsonwebtoken";
 import validator from "validator";
 import bcrypt from "bcrypt";
-import Factory from "./factory.js";
+import Prod from "../models/prodModel.js";
 
 // Function to create a JWT token
 const createToken = (_id) => {
@@ -71,7 +71,7 @@ const getStoreById = async (req, res) => {
 
   try {
     // Fetch store details by ID from the Store model
-    const store = await Store.findById(id).select("name location email");
+    const store = await Store.findById(id).select("name email");
     if (!store) {
       throw new Error("Store not found");
     }
@@ -83,5 +83,19 @@ const getStoreById = async (req, res) => {
   }
 };
 
+const getStoresWithProd = async (req, res) => {
+  try {
+    const products = await Prod.find({
+      store_id: { $exists: true },
+    }).distinct("store_id");
+
+    const stores = await Store.find({ _id: { $in: products } });
+    res.status(200).json(stores);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: "Failed to fetch Stores" });
+  }
+};
+
 // Export the controller functions
-export { loginStore, signupStore, getStoreById };
+export { loginStore, signupStore, getStoreById, getStoresWithProd };

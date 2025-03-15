@@ -3,6 +3,7 @@ import {
   loginStore,
   signupStore,
   getStoreById,
+  getStoresWithProd,
 } from "../controllers/storeController.js"; // Import store controllers
 
 const router = express.Router(); // Create an Express Router instance
@@ -12,6 +13,8 @@ router.post("/login", loginStore);
 
 // Route to handle store signup
 router.post("/signup", signupStore);
+
+router.get("/getStores", getStoresWithProd);
 
 // Route to fetch store details by store ID
 router.get("/:id", getStoreById);

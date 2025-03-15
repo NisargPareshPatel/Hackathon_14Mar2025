@@ -1,19 +1,3 @@
-//
-//UserModel.js
-//
-// This file defines the schema and model for user management using Mongoose.
-// It includes methods for user signup and login with validation and password hashing.
-//
-// - `userSchema`: Mongoose schema defining the user structure, including fields for first name, last name, email, and password.
-// - `signup`: Static method for creating a new user. Validates input, checks for existing email, hashes the password, and saves the user to the database.
-// - `login`: Static method for authenticating a user. Validates input, checks if the user exists, and compares the provided password with the stored hashed password.
-//
-// Used Tools:
-// - mongoose: MongoDB object modeling tool.
-// - bcrypt: Library for hashing passwords.
-// - validator: Library for input validation.
-//
-
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import validator from "validator";

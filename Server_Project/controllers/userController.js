@@ -1,15 +1,3 @@
-//
-//User Controller
-//
-//This file contains controller functions for handling user-related operations.
-//
-//- `loginUser`: Authenticates a user with email and password, and returns a JSON Web Token (JWT) along with user details.
-//- `signupUser`: Registers a new user with provided details, and returns a JSON Web Token (JWT) along with user details.
-//- `getUserById`: Fetches and returns user details (first, last name, email) by user ID.
-//
-//The functions utilize the User model for interacting with the database and the jsonwebtoken library for token management.
-//
-
 import User from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import validator from "validator";

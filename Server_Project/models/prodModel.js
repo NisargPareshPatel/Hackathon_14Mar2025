@@ -1,14 +1,3 @@
-//
-//prodModel.sj component
-//
-//This file defines a Mongoose schema and model for managing prod listings in the prodnR web application.
-//
-//The prod schema includes fields to describe various attributes of a prod, such as make, model, year,
-//odometer reading, transmission type, fuel type, seating capacity, color, description, and daily rental rate.
-//It also includes fields for location coordinates, availability dates and times, a photo URL, and identifiers
-//for the lister and renter. The 'booked' field indicates whether the prod is currently booked.
-//
-//
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 

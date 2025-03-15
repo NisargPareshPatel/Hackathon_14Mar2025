@@ -1,14 +1,3 @@
-//
-//Server Setup and Configuration
-//
-//This file sets up and configures the Express server. It includes:
-//- Importing required modules and environment variables.
-//- Initializing the Express application.
-//- Configuring middleware for CORS, JSON parsing, and static file serving.
-//- Setting up routes for handling car and user-related requests.
-//- Connecting to MongoDB and starting the server.
-//
-
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
