@@ -27,14 +27,14 @@ const loginStore = async (req, res) => {
 
 // Controller function to handle store signup
 const signupStore = async (req, res) => {
-  const { name, location, email, password } = req.body;
+  const { name, lat, long, email, password } = req.body;
 
   try {
     const store = await Factory.createObject("createStore", req);
     const token = createToken(store._id);
     const id = store._id;
     // Respond with store details and token
-    res.status(200).json({ id, name, location, email, token });
+    res.status(200).json({ id, name, lat, long, email, token });
   } catch (error) {
     // Respond with an error message if signup fails
     res.status(400).json({ error: error.message });
