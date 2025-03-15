@@ -14,6 +14,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 class DefaultStoreFlowComponent (
+    onLogoutClicked: () -> Unit,
     componentContext: ComponentContext
 ): StoreFlowComponent, ComponentContext by componentContext {
     private val navigator = StackNavigation<Config>()
@@ -29,7 +30,7 @@ class DefaultStoreFlowComponent (
                         navigator.pushNew(Config.CreateProd)
                     }, onProductClicked = { id ->
 
-                    }, componentContext = context))
+                    }, onLogoutClicked = onLogoutClicked, componentContext = context))
                 }
 
                 Config.CreateProd -> {

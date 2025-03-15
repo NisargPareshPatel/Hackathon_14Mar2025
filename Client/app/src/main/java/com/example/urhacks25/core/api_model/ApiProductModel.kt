@@ -1,5 +1,6 @@
 package com.example.urhacks25.core.api_model
 
+import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -7,7 +8,7 @@ import kotlinx.serialization.Serializable
 data class ApiProductModel (
     @SerialName("name") val name: String,
     @SerialName("photo") val photoUrl: String,
-    @SerialName("expiry") val expiry: String,
+    @SerialName("expiry") val expiry: Instant,
     @SerialName("price") val price: Double,
     @SerialName("store_id") val storeId: String,
 

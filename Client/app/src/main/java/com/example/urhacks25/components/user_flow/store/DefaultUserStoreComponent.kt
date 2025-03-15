@@ -1,23 +1,22 @@
-package com.example.urhacks25.components.store_flow.product_list
+package com.example.urhacks25.components.user_flow.store
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
 import com.example.urhacks25.core.ApiController
-import com.example.urhacks25.core.AppSettings
 import com.example.urhacks25.core.api_model.ApiProductModel
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class DefaultStoreProductListComponent(
-    private val onCreateClicked: () -> Unit,
-    private val onProductClicked: (Long) -> Unit,
-    private val onLogoutClicked: () -> Unit,
+class DefaultUserStoreComponent(
+    override val storeName: String,
+    private val storeId: String,
+    private val onBackClicked: () -> Unit,
+    private val onProductClicked: (String) -> Unit,
     componentContext: ComponentContext,
-) : StoreProductListComponent, ComponentContext by componentContext, KoinComponent {
+) : UserStoreComponent, ComponentContext by componentContext, KoinComponent {
     private val scope = coroutineScope()
-    private val appSettings by inject<AppSettings>()
     private val apiController by inject<ApiController>()
 
     override val isLoading = MutableValue(false)
@@ -36,20 +35,12 @@ class DefaultStoreProductListComponent(
         }
     }
 
-    override fun onCreateClicked() {
-        onCreateClicked.invoke()
+    override fun onBackPressed() {
+        onBackClicked.invoke()
     }
 
-    override fun onMarkProductAsDone(productId: Long) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onProductClicked(productId: Long) {
+    override fun onProductClicked(productId: String) {
         onProductClicked.invoke(productId)
-    }
-
-    override fun onLogoutClicked() {
-        onLogoutClicked.invoke()
     }
 
     private suspend fun load(refresh: Boolean) {
@@ -59,7 +50,7 @@ class DefaultStoreProductListComponent(
             isLoading.value = true
         }
 
-        apiController.getProdByStore(storeId = appSettings.id).onSuccess {
+        apiController.getProdByStore(storeId = storeId).onSuccess {
             items.value = it
         }.onFailure {
             it.printStackTrace()

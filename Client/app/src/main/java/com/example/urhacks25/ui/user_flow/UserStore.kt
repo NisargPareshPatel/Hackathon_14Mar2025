@@ -1,5 +1,6 @@
-package com.example.urhacks25.ui.store_flow
+package com.example.urhacks25.ui.user_flow
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -8,11 +9,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.Logout
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -25,12 +24,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
-import com.example.urhacks25.components.store_flow.product_list.StoreProductListComponent
+import com.example.urhacks25.components.user_flow.store.UserStoreComponent
 import com.example.urhacks25.ui.util.ProductCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductList(component: StoreProductListComponent) {
+fun UserStore(component: UserStoreComponent) {
     val isLoading by component.isLoading.subscribeAsState()
     val isRefreshing by component.isRefreshing.subscribeAsState()
     val items by component.items.subscribeAsState()
@@ -39,17 +38,13 @@ fun ProductList(component: StoreProductListComponent) {
         topBar = {
             TopAppBar(
                 title = {
-                    Text("Products")
-                }, actions = {
-                    IconButton(onClick = component::onLogoutClicked) {
-                        Icon(Icons.AutoMirrored.Filled.Logout, contentDescription = null)
+                    Text(component.storeName)
+                }, navigationIcon = {
+                    IconButton(onClick = component::onBackPressed) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
                     }
                 }
             )
-        }, floatingActionButton = {
-            FloatingActionButton(onClick = component::onCreateClicked) {
-                Icon(Icons.Default.Add, contentDescription = null)
-            }
         }
     ) { padding ->
         if (isLoading) {
@@ -62,8 +57,10 @@ fun ProductList(component: StoreProductListComponent) {
                     items(items) { item ->
                         ProductCard(
                             item = item,
-                            canGift = true,
-                            modifier = Modifier
+                            canGift = false,
+                            modifier = Modifier.clickable {
+                                component.onProductClicked(productId = item.id!!)
+                            }
                         )
                     }
                 }

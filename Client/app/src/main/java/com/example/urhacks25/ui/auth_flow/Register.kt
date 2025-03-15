@@ -54,6 +54,7 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.maps.android.compose.CameraPositionState
+import com.google.maps.android.compose.ComposeMapColorScheme
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.rememberCameraPositionState
 
@@ -227,7 +228,8 @@ fun Register(
                         .clip(MaterialTheme.shapes.medium)) {
                         GoogleMap(
                             cameraPositionState = cameraPositionState,
-                            modifier = Modifier.fillMaxSize()
+                            modifier = Modifier.fillMaxSize(),
+                            mapColorScheme = ComposeMapColorScheme.DARK
                         )
 
                         Box(

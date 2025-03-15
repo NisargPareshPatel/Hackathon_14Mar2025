@@ -18,9 +18,8 @@ interface RootComponent {
             val component: StoreFlowComponent
         ): Child
 
-        /*
         class UserFlow (
             val component: UserFlowComponent
-        ): Child*/
+        ): Child
     }
 }

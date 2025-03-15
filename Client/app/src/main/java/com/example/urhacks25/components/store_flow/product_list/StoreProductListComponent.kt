@@ -11,6 +11,7 @@ interface StoreProductListComponent {
     val isRefreshing: Value<Boolean>
     fun refresh()
 
+    fun onLogoutClicked()
     fun onCreateClicked()
     fun onMarkProductAsDone(productId: Long)
     fun onProductClicked(productId: Long)

@@ -2,10 +2,8 @@ package com.example.urhacks25.components.store_flow.create_product
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.MutableValue
-import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
 import com.cloudinary.android.MediaManager
-import com.example.urhacks25.components.store_flow.product_list.StoreProductListComponent
 import com.example.urhacks25.core.ApiController
 import com.example.urhacks25.core.AppSettings
 import com.example.urhacks25.core.api_model.ApiProductModel
@@ -14,13 +12,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
-import kotlinx.serialization.SerialName
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import java.text.SimpleDateFormat
-import java.util.TimeZone
-import kotlin.getValue
-import kotlin.math.exp
 import kotlin.time.Duration.Companion.days
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
@@ -76,10 +69,6 @@ class DefaultStoreCreateProductComponent (
                 && expiryDate.value > (Clock.System.now() - 1.days)
     }
 
-    private val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.S'Z'").also {
-        it.timeZone = TimeZone.getTimeZone("UTC")
-    }
-
     @OptIn(ExperimentalUuidApi::class)
     override fun dispatchCreation() {
         scope.launch {
@@ -101,7 +90,7 @@ class DefaultStoreCreateProductComponent (
                 apiController.prodCreate(ApiProductModel(
                     name = name.value,
                     photoUrl = photoUrl.orEmpty(),
-                    expiry = sdf.format(expiryDate.value.toEpochMilliseconds()),
+                    expiry = expiryDate.value,
                     price = price.value.toDouble(),
                     storeId = appSettings.id
                 ))

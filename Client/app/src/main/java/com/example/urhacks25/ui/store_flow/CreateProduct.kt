@@ -2,6 +2,7 @@ package com.example.urhacks25.ui.store_flow
 
 import android.content.Context
 import androidx.camera.compose.CameraXViewfinder
+import androidx.camera.core.CameraSelector.DEFAULT_BACK_CAMERA
 import androidx.camera.core.CameraSelector.DEFAULT_FRONT_CAMERA
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCapture.OutputFileResults
@@ -360,7 +361,7 @@ class CxViewModel : ViewModel() {
         val processCameraProvider = ProcessCameraProvider.awaitInstance(appContext)
 
         processCameraProvider.bindToLifecycle(
-            lifecycleOwner, DEFAULT_FRONT_CAMERA, cameraPreviewUseCase, imageCaptureUseCase
+            lifecycleOwner, DEFAULT_BACK_CAMERA, cameraPreviewUseCase, imageCaptureUseCase
         )
 
         // Cancellation signals we're done with the camera
