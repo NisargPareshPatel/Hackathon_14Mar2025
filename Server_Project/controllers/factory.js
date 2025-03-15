@@ -55,6 +55,39 @@ class Factory {
     return user;
   }
 
+  static async createStore(data) {
+    const { name, location, email, password, lat, long } = data.body;
+
+    if (!name || !location || !email || !password || !lat || !long) {
+      throw new Error("All fields must be filled");
+    }
+    if (!validator.isEmail(email)) {
+      throw new Error("Email not valid");
+    }
+    if (!validator.isStrongPassword(password)) {
+      throw new Error("Password too weak");
+    }
+
+    const exists = await Store.findOne({ email });
+    if (exists) {
+      throw new Error("Email in use");
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+
+    const store = await Store.create({
+      name,
+      email,
+      password: hash,
+      location: {
+        coordinates: [data.body.long, data.body.lat],
+      },
+    });
+
+    return store;
+  }
+
   static createObject(type, data) {
     switch (type) {
       case "createCar":
