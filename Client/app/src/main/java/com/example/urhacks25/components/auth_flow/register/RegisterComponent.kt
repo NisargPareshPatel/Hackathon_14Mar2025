@@ -1,6 +1,7 @@
 package com.example.urhacks25.components.auth_flow.register
 
 import com.arkivanov.decompose.value.Value
+import com.google.android.gms.maps.model.LatLng
 
 interface RegisterComponent {
     val isLoading: Value<Boolean>
@@ -21,8 +22,8 @@ interface RegisterComponent {
     fun setConfirmPassword(value: String)
 
     // Store
-    val location: Value<String>
-    fun setLocation(value: String)
+    val location: Value<LatLng>
+    fun setLocation(latitude: LatLng)
 
     val storeName: Value<String>
     fun setStoreName(value: String)

@@ -2,6 +2,7 @@ package com.example.urhacks25.components.auth_flow.register
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.MutableValue
+import com.google.android.gms.maps.model.LatLng
 import org.koin.core.component.KoinComponent
 
 class DefaultRegisterComponent (
@@ -40,8 +41,8 @@ class DefaultRegisterComponent (
         check()
     }
 
-    override val location = MutableValue("")
-    override fun setLocation(value: String) {
+    override val location = MutableValue(LatLng(0.0, 0.0))
+    override fun setLocation(value: LatLng) {
         location.value = value
         check()
     }
@@ -72,7 +73,7 @@ class DefaultRegisterComponent (
 
     private fun check() {
         canContinue.value = username.value.isNotEmpty() && password.value.isNotEmpty() && password.value == confirmPassword.value && if (registerAsStore.value) {
-            location.value.isNotEmpty() && storeName.value.isNotEmpty()
+            storeName.value.isNotEmpty()
         } else {
             firstName.value.isNotEmpty() && lastName.value.isNotEmpty() && phoneNumber.value.isNotEmpty()
         }
