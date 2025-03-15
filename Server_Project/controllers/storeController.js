@@ -1,7 +1,7 @@
 import Store from "../models/storeModel.js"; // Import Store model
 import jwt from "jsonwebtoken";
 import Factory from "./factory.js";
-
+import validator from "validator";
 // Function to create a JWT token
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "30d" });
