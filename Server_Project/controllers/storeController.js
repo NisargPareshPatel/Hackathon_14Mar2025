@@ -1,4 +1,4 @@
-import { Store } from "../models/userModel.js"; // Import Store model
+import Store from "../models/storeModel.js"; // Import Store model
 import jwt from "jsonwebtoken";
 import Factory from "./factory.js";
 

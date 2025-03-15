@@ -14,6 +14,7 @@ import express from "express";
 import cors from "cors";
 import prodRoutes from "./routes/prodRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import storeRoutes from "./routes/storeRoutes.js";
 import mongoose from "mongoose";
 
 // Set the port number from environment variable or default to 4000
@@ -42,6 +43,8 @@ app.use("/api/prodRoutes", prodRoutes);
 
 // Set up routes for user-related operations
 app.use("/api/userRoutes", userRoutes);
+
+app.use("/api/storeRoutes", storeRoutes);
 
 // Connect to MongoDB and start the server if successful
 mongoose
