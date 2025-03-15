@@ -169,6 +169,8 @@ fun Register(
                 }
 
                 OutlinedTextField(
+                    shape = MaterialTheme.shapes.medium,
+                    maxLines = 1,
                     value = username,
                     onValueChange = component::setUsername,
                     modifier = Modifier.fillMaxWidth(),
@@ -180,6 +182,8 @@ fun Register(
                 )
 
                 OutlinedTextField(
+                    shape = MaterialTheme.shapes.medium,
+                    maxLines = 1,
                     value = password,
                     onValueChange = component::setPassword,
                     modifier = Modifier.fillMaxWidth(),
@@ -191,6 +195,8 @@ fun Register(
                 )
 
                 OutlinedTextField(
+                    shape = MaterialTheme.shapes.medium,
+                    maxLines = 1,
                     value = cPassword,
                     onValueChange = component::setConfirmPassword,
                     modifier = Modifier.fillMaxWidth(),
@@ -203,6 +209,8 @@ fun Register(
 
                 if (asStore) {
                     OutlinedTextField(
+                        shape = MaterialTheme.shapes.medium,
+                        maxLines = 1,
                         value = sName,
                         onValueChange = component::setStoreName,
                         modifier = Modifier.fillMaxWidth(),
@@ -234,6 +242,8 @@ fun Register(
                     }
                 } else {
                     OutlinedTextField(
+                        shape = MaterialTheme.shapes.medium,
+                        maxLines = 1,
                         value = fName,
                         onValueChange = component::setFirstName,
                         modifier = Modifier.fillMaxWidth(),
@@ -245,6 +255,8 @@ fun Register(
                     )
 
                     OutlinedTextField(
+                        shape = MaterialTheme.shapes.medium,
+                        maxLines = 1,
                         value = lName,
                         onValueChange = component::setLastName,
                         modifier = Modifier.fillMaxWidth(),
@@ -256,6 +268,8 @@ fun Register(
                     )
 
                     OutlinedTextField(
+                        shape = MaterialTheme.shapes.medium,
+                        maxLines = 1,
                         value = uPhone,
                         onValueChange = component::setPhoneNumber,
                         modifier = Modifier.fillMaxWidth(),

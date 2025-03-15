@@ -7,6 +7,9 @@ interface StoreCreateProductComponent {
     val isLoading: Value<Boolean>
     fun onBackPressed()
 
+    val error: Value<String>
+    fun dismissError()
+
     val canContinue: Value<Boolean>
     fun dispatchCreation()
 
@@ -16,8 +19,8 @@ interface StoreCreateProductComponent {
     val photoPath: Value<String>
     fun setPhotoPath(value: String)
 
-    val price: Value<Double>
-    fun setPrice(value: Double)
+    val price: Value<String>
+    fun setPrice(value: String)
 
     val expiryDate: Value<Instant>
     fun setExpiryDate(value: Instant)

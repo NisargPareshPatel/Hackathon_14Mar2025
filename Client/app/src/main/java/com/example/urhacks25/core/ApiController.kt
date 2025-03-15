@@ -25,7 +25,7 @@ class ApiController (
     private val settings: AppSettings
 ) {
     companion object {
-        private val BASE_URL = "http://192.168.8.239:4000"
+        private val BASE_URL = "http://10.69.69.111:4000"
 
         private val BASE_URL_PRODS = "$BASE_URL/api/prodRoutes"
         private val BASE_URL_USER = "$BASE_URL/api/userRoutes"

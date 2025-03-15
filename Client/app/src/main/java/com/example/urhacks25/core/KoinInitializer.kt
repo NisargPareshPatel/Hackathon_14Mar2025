@@ -3,6 +3,8 @@ package com.example.urhacks25.core
 import android.content.Context
 import androidx.annotation.Keep
 import androidx.startup.Initializer
+import com.cloudinary.Configuration
+import com.cloudinary.android.MediaManager
 import com.russhwolf.settings.SharedPreferencesSettings
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
@@ -17,8 +19,16 @@ import org.koin.dsl.module
 import kotlin.math.sin
 
 @Keep
-class KoinInitializer: Initializer<Boolean> {
+class KoinInitializer : Initializer<Boolean> {
     override fun create(context: Context): Boolean {
+        MediaManager.init(
+            context, Configuration.Builder()
+                .setCloudName("dzbppy2qi")
+                .setApiKey("274454216227838")
+                .setApiSecret("NeHWTJ9e1ejL4Q2OinP1zToXzmM")
+                .build()
+        )
+
         startKoin {
             androidLogger()
             androidContext(context.applicationContext)
@@ -31,6 +41,7 @@ class KoinInitializer: Initializer<Boolean> {
 
                             install(ContentNegotiation) {
                                 json(Json {
+                                    ignoreUnknownKeys = true
                                     encodeDefaults = false
                                 })
                             }
@@ -40,7 +51,10 @@ class KoinInitializer: Initializer<Boolean> {
                     single<AppSettings> {
                         AppSettings(
                             settings = SharedPreferencesSettings(
-                                delegate = get<Context>().getSharedPreferences("prefs", Context.MODE_PRIVATE)
+                                delegate = get<Context>().getSharedPreferences(
+                                    "prefs",
+                                    Context.MODE_PRIVATE
+                                )
                             )
                         )
                     }

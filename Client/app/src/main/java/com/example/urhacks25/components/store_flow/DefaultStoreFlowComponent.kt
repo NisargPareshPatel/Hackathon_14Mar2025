@@ -36,7 +36,7 @@ class DefaultStoreFlowComponent (
                     Child.CreateProduct(DefaultStoreCreateProductComponent(
                         onBack = navigator::pop,
                         onAdded = {
-
+                            navigator.pop()
                         },
                         componentContext = context
                     ))

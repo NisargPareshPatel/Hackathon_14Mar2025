@@ -56,6 +56,8 @@ class DefaultStoreProductListComponent(
 
         apiController.getProdByStore(storeId = appSettings.id).onSuccess {
             items.value = it
+        }.onFailure {
+            it.printStackTrace()
         }
 
         isRefreshing.value = false

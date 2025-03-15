@@ -121,6 +121,8 @@ fun SignIn(
                 }
 
                 OutlinedTextField(
+                    shape = MaterialTheme.shapes.medium,
+                    maxLines = 1,
                     value = username,
                     onValueChange = component::setUsername,
                     modifier = Modifier.fillMaxWidth(),
@@ -132,6 +134,8 @@ fun SignIn(
                 )
 
                 OutlinedTextField(
+                    shape = MaterialTheme.shapes.medium,
+                    maxLines = 1,
                     value = password,
                     onValueChange = component::setPassword,
                     modifier = Modifier.fillMaxWidth(),

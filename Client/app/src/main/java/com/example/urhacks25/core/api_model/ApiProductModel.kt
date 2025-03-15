@@ -8,8 +8,10 @@ data class ApiProductModel (
     @SerialName("name") val name: String,
     @SerialName("photo") val photoUrl: String,
     @SerialName("expiry") val expiry: String,
-    @SerialName("price") val price: String,
+    @SerialName("price") val price: Double,
     @SerialName("store_id") val storeId: String,
+
+    @SerialName("_id") val id: String? = null,
     @SerialName("booked") val booked: Boolean = false,
     @SerialName("booker_id") val bookerId: String? = null,
 )

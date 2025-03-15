@@ -79,6 +79,15 @@ dependencies {
     implementation(libs.google.maps.compose)
     implementation(libs.google.maps.compose.widgets)
     implementation(libs.play.services.location)
+
+    implementation("androidx.camera:camera-compose:1.5.0-alpha06")
+    implementation("androidx.camera:camera-camera2:1.5.0-alpha06")
+    implementation("androidx.camera:camera-core:1.5.0-alpha06")
+    implementation("androidx.camera:camera-lifecycle:1.5.0-alpha06")
+    implementation("androidx.camera.viewfinder:viewfinder-core:1.4.0-alpha13")
+    implementation("androidx.camera.viewfinder:viewfinder-compose:1.4.0-alpha13")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
+    implementation("com.cloudinary:cloudinary-android-core:3.0.2")
 }
 
 secrets {
