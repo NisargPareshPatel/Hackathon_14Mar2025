@@ -5,7 +5,19 @@ import mongoose from "mongoose";
 const validateProd = [
   check("name").notEmpty().withMessage("Please add a Name"),
   check("photo").notEmpty().withMessage("Please add a Photo"),
-  check("expiry").notEmpty().withMessage("Please List a Date"),
+  check("expiry")
+    .notEmpty()
+    .withMessage("Please List a Date")
+    .custom((value) => {
+      const expiryDate = new Date(value);
+      if (isNaN(expiryDate.getTime())) {
+        throw new Error("Invalid date format");
+      }
+      if (expiryDate <= new Date()) {
+        throw new Error("Expiry date must be in the future");
+      }
+      return true;
+    }),
   check("price").notEmpty().withMessage("Please List a Price"),
 ];
 
