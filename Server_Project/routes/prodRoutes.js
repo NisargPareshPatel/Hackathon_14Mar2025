@@ -10,7 +10,6 @@ import {
 // Creating an instance of the Express Router
 const router = express.Router();
 
-// Route to list a new car (POST request with car validation)
 router.post("/create", validateProd, createProd);
 
 router.post("/getProdbyStore", getProdbyStore);

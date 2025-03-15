@@ -10,4 +10,6 @@ data class ApiProductModel (
     @SerialName("expiry") val expiry: String,
     @SerialName("price") val price: String,
     @SerialName("store_id") val storeId: String,
+    @SerialName("booked") val booked: Boolean = false,
+    @SerialName("booker_id") val bookerId: String? = null,
 )

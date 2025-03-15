@@ -9,6 +9,7 @@ import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.json.Json
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -22,31 +23,36 @@ class KoinInitializer: Initializer<Boolean> {
             androidLogger()
             androidContext(context.applicationContext)
 
-            module {
-                single {
-                    HttpClient(OkHttp) {
-                        install(Logging)
+            modules(
+                module {
+                    single<HttpClient> {
+                        HttpClient(OkHttp) {
+                            install(Logging)
 
-                        install(ContentNegotiation) {
-                            json()
+                            install(ContentNegotiation) {
+                                json(Json {
+                                    encodeDefaults = false
+                                })
+                            }
                         }
                     }
-                }
 
-                single {
-                    AppSettings(
-                        settings = SharedPreferencesSettings(
-                            delegate = get<Context>().getSharedPreferences("prefs", Context.MODE_PRIVATE)
+                    single<AppSettings> {
+                        AppSettings(
+                            settings = SharedPreferencesSettings(
+                                delegate = get<Context>().getSharedPreferences("prefs", Context.MODE_PRIVATE)
+                            )
                         )
-                    )
-                }
+                    }
 
-                single {
-                    ApiController(
-                        client = get<HttpClient>()
-                    )
+                    single<ApiController> {
+                        ApiController(
+                            client = get<HttpClient>(),
+                            settings = get<AppSettings>()
+                        )
+                    }
                 }
-            }
+            )
         }
 
         return true

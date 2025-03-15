@@ -16,6 +16,9 @@ interface SignInComponent {
     val password: Value<String>
     fun setPassword(value: String)
 
+    val error: Value<String>
+    fun dismissError()
+
     fun onRegisterClicked()
     fun dispatchAuthorization()
 }
