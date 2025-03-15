@@ -29,13 +29,9 @@ class DefaultUserProductPageComponent (
     init {
         doOnCreate {
             scope.launch {
-                isLoading.value = true
-
                 apiController.getProdById(productId).onSuccess { s ->
                     item.value = Optional.of(s)
                 }
-
-                isLoading.value = false
             }
         }
     }
@@ -45,6 +41,14 @@ class DefaultUserProductPageComponent (
     }
 
     override fun requestBooking() {
-        TODO("Not yet implemented")
+        scope.launch {
+            isLoading.value = true
+
+            apiController.setProdBook(productId = productId, bookerId = appSettings.id).onSuccess {
+                onBookingConfirmed()
+            }
+
+            isLoading.value = false
+        }
     }
 }

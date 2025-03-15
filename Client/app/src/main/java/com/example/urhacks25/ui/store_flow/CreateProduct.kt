@@ -87,8 +87,10 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.Instant
 import java.io.File
 import java.util.TimeZone
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalUuidApi::class)
 @Composable
 fun CreateProduct(component: StoreCreateProductComponent) {
     val scope = rememberCoroutineScope()
@@ -137,7 +139,7 @@ fun CreateProduct(component: StoreCreateProductComponent) {
                 FloatingActionButton(
                     onClick = {
                         scope.launch {
-                            val file = File(context.filesDir, "upload.jpg")
+                            val file = File(context.filesDir, "${Uuid.random().toHexString()}.jpg")
                             if (file.exists()) file.delete()
                             cxViewModel.captureImage(file)
                             component.setPhotoPath(file.absolutePath)

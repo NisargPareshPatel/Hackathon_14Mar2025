@@ -15,6 +15,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -26,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.example.urhacks25.components.store_flow.product_list.StoreProductListComponent
+import com.example.urhacks25.ui.util.BookedProductCard
 import com.example.urhacks25.ui.util.ProductCard
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,7 +35,9 @@ import com.example.urhacks25.ui.util.ProductCard
 fun ProductList(component: StoreProductListComponent) {
     val isLoading by component.isLoading.subscribeAsState()
     val isRefreshing by component.isRefreshing.subscribeAsState()
+
     val items by component.items.subscribeAsState()
+    val itemsBooked by component.itemsBooked.subscribeAsState()
 
     Scaffold(
         topBar = {
@@ -59,6 +63,24 @@ fun ProductList(component: StoreProductListComponent) {
         } else {
             PullToRefreshBox(isRefreshing = isRefreshing, onRefresh = component::refresh, modifier = Modifier.padding(padding)) {
                 LazyColumn(modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                    if (itemsBooked.isNotEmpty()) {
+                        item {
+                            Text("Booked items", style = MaterialTheme.typography.labelLarge)
+                        }
+
+                        items(itemsBooked) { item ->
+                            BookedProductCard(
+                                item = item.item,
+                                user = item.user,
+                                modifier = Modifier
+                            )
+                        }
+
+                        item {
+                            Text("Available items", style = MaterialTheme.typography.labelLarge)
+                        }
+                    }
+
                     items(items) { item ->
                         ProductCard(
                             item = item,

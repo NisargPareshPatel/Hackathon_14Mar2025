@@ -51,7 +51,7 @@ class DefaultUserStoreComponent(
         }
 
         apiController.getProdByStore(storeId = storeId).onSuccess {
-            items.value = it
+            items.value = it.filterNot(ApiProductModel::booked)
         }.onFailure {
             it.printStackTrace()
         }

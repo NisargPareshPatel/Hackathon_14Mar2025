@@ -63,7 +63,7 @@ fun Landing(
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {
             Text(
-                text = "Welcome to FoodReserve",
+                text = "Welcome to FutureFeast",
                 style = MaterialTheme.typography.headlineLarge,
                 color = MaterialTheme.colorScheme.primary,
                 fontFamily = robotoMonoFontFamily,
@@ -107,7 +107,7 @@ fun Landing(
                             }, leadingContent = {
                                 Icon(Icons.Default.PointOfSale, contentDescription = null)
                             }, supportingContent = {
-                                Text("You can still sell your leftovers and almost expired food instead of throwing it out.\n\nFoodReserve connects you and potential savers in an easiest way possible. We only take 10% fee from each sale.")
+                                Text("You can still sell your leftovers and almost expired food instead of throwing it out.\n\nFutureFeast connects you and potential savers in an easiest way possible. We only take 10% fee from each sale.")
                             }, overlineContent = {
                                 Text("For store owners")
                             }, colors = ListItemDefaults.colors(

@@ -23,6 +23,8 @@ class DefaultStoreProductListComponent(
     override val isLoading = MutableValue(false)
     override val isRefreshing = MutableValue(false)
     override val items = MutableValue<List<ApiProductModel>>(emptyList())
+    override val itemsBooked =
+        MutableValue<List<StoreProductListComponent.BookedModel>>(emptyList())
 
     init {
         scope.launch {
@@ -41,7 +43,7 @@ class DefaultStoreProductListComponent(
     }
 
     override fun onMarkProductAsDone(productId: Long) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onProductClicked(productId: Long) {
@@ -59,8 +61,21 @@ class DefaultStoreProductListComponent(
             isLoading.value = true
         }
 
-        apiController.getProdByStore(storeId = appSettings.id).onSuccess {
-            items.value = it
+        apiController.getProdByStore(storeId = appSettings.id).onSuccess { list ->
+            val (booked, other) = list.partition(ApiProductModel::booked)
+
+            runCatching {
+                itemsBooked.value = booked.map {
+                    StoreProductListComponent.BookedModel(
+                        item = it,
+                        user = apiController.getUserById(it.bookerId!!).getOrThrow()
+                    )
+                }
+            }.onFailure {
+                it.printStackTrace()
+            }
+
+            items.value = other
         }.onFailure {
             it.printStackTrace()
         }

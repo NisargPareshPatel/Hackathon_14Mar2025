@@ -53,12 +53,13 @@ class ApiController (
         }
     }
 
-    suspend fun setProdBook(productId: String): Result<Boolean> {
+    suspend fun setProdBook(bookerId: String, productId: String): Result<Boolean> {
         return runCatching {
             client.post("${BASE_URL_PRODS}/setBook") {
                 addAuthorization()
                 setJsonContent(buildJsonObject {
-                    put("id", productId)
+                    put("prod_id", productId)
+                    put("booker_id", bookerId)
                 })
             }.status == HttpStatusCode.OK
         }
@@ -147,7 +148,7 @@ class ApiController (
         return if (status == HttpStatusCode.OK) {
             body<T>()
         } else {
-            throw Exception(body<JsonObject>()["error"]!!.jsonPrimitive.content)
+            throw Exception(body<JsonObject>()["error"]?.jsonPrimitive?.content ?: "Unknown error")
         }
     }
 }
