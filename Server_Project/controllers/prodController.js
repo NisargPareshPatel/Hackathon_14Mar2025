@@ -40,7 +40,7 @@ const getProdbyStore = async (req, res) => {
     return res.status(400).json({ message: "Store ID is required" });
   }
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
+  if (!mongoose.Types.ObjectId.isValid(sid)) {
     return res.status(404).json({ error: "Invalid ID" });
   }
 
