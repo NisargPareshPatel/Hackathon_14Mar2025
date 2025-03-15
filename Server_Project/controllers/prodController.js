@@ -60,22 +60,21 @@ const getProdbyStore = async (req, res) => {
 };
 
 const booked = async (req, res) => {
-  const id = req.body.id;
+  const { prod_id, booker_id } = req.body;
 
-  if (!id) {
+  if (!prod_id) {
     return res.status(400).json({ message: "Error: ID not found" });
   }
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
+  if (!mongoose.Types.ObjectId.isValid(prod_id)) {
     return res.status(404).json({ error: "Invalid ID" });
   }
 
   try {
-    const product = await Prod.findByIdAndUpdate(
-      id,
-      { booked: true },
-      { new: true }
-    );
+    const product = await Prod.findById(prod_id);
+    product.booked = true;
+    product.booker_id = booker_id;
+    await product.save();
     if (!product) return res.status(200).json({ message: "Product not found" });
     res.status(200).json(product);
   } catch (err) {
