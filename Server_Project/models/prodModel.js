@@ -14,9 +14,12 @@ const prodSchema = new Schema({
   expiry: {
     type: Date,
     required: true,
+    index: { expires: 0 },
   },
   booked: {
     type: Boolean,
+    default: false,
+    required: true,
   },
   booker_id: {
     type: String,

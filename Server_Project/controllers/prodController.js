@@ -7,6 +7,7 @@ const validateProd = [
   check("photo").notEmpty().withMessage("Please add a Photo"),
   check("expiry").notEmpty().withMessage("Please List a Date"),
   check("price").notEmpty().withMessage("Please List a Price"),
+  check("quantity").notEmpty().withMessage("Please List a Quantity"),
 ];
 
 // Handler to list a new car
@@ -26,6 +27,7 @@ const createProd = async (req, res) => {
       price: req.body.price,
       store_id: req.body.store_id,
     });
+
     res.status(200).send({ message: "Product listed successfully" });
   } catch (err) {
     console.error(err);
