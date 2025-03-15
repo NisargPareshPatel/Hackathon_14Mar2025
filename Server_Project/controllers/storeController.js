@@ -18,9 +18,9 @@ const loginStore = async (req, res) => {
     const store = await Store.login(email, password);
     // Generate a token for the authenticated store
     const token = createToken(store._id);
-    const { _id: id, name, location } = store;
+    const { _id: id, name, lat, long } = store;
     // Respond with store details and token
-    res.status(200).json({ id, name, location, email, token });
+    res.status(200).json({ id, name, lat, long, email, token });
   } catch (error) {
     // Respond with an error message if login fails
     res.status(400).json({ error: error.message });
