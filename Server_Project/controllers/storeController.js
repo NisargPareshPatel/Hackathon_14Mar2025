@@ -87,7 +87,14 @@ const getStoresWithProd = async (req, res) => {
   try {
     const products = await Prod.find({
       store_id: { $exists: true },
+      booked: false,
     }).distinct("store_id");
+
+    if (!products.length) {
+      return res
+        .status(404)
+        .json({ message: "No stores found with available products" });
+    }
 
     const stores = await Store.find({ _id: { $in: products } });
     res.status(200).json(stores);
