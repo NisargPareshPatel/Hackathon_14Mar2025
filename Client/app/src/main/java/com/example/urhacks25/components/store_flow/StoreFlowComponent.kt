@@ -3,6 +3,7 @@ package com.example.urhacks25.components.store_flow
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.backhandler.BackHandlerOwner
+import com.example.urhacks25.components.store_flow.create_product.StoreCreateProductComponent
 import com.example.urhacks25.components.store_flow.product_list.StoreProductListComponent
 
 interface StoreFlowComponent: BackHandlerOwner {
@@ -12,6 +13,10 @@ interface StoreFlowComponent: BackHandlerOwner {
     sealed interface Child {
         class ProductList (
             val component: StoreProductListComponent
+        ): Child
+
+        class CreateProduct (
+            val component: StoreCreateProductComponent
         ): Child
     }
 }
