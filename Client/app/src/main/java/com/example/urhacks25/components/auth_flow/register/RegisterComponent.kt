@@ -11,6 +11,9 @@ interface RegisterComponent {
     val registerAsStore: Value<Boolean>
     fun setRegisterAsStore(value: Boolean)
 
+    val error: Value<String>
+    fun dismissError()
+
     // Generic
     val username: Value<String>
     fun setUsername(value: String)

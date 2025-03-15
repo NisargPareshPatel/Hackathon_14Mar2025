@@ -7,7 +7,10 @@ import kotlinx.serialization.Serializable
 data class ApiStoreModel (
     @SerialName("name") val name: String,
     @SerialName("email") val email: String,
-    @SerialName("password") val password: String? = null,
     @SerialName("lat") val lat: String,
     @SerialName("long") val long: String,
+    //
+    @SerialName("id") val id: String? = null,
+    @SerialName("password") val password: String? = null,
+    @SerialName("token") val token: String? = null,
 )
