@@ -1,6 +1,8 @@
 package com.example.urhacks25.core
 
-class AppSettings (
+import com.russhwolf.settings.Settings
 
+class AppSettings (
+    private val settings: Settings
 ) {
 }

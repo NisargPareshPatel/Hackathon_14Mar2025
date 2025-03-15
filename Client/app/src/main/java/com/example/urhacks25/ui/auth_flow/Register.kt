@@ -1,5 +1,7 @@
 package com.example.urhacks25.ui.auth_flow
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -7,9 +9,12 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -28,15 +33,28 @@ import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.example.urhacks25.components.auth_flow.landing.LandingComponent
 import com.example.urhacks25.components.auth_flow.register.RegisterComponent
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.tasks.CancellationTokenSource
+import com.google.maps.android.compose.CameraPositionState
+import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.rememberCameraPositionState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,6 +72,27 @@ fun Register(
     val lName by component.lastName.subscribeAsState()
     val uPhone by component.phoneNumber.subscribeAsState()
     val asStore by component.registerAsStore.subscribeAsState()
+
+    val cameraPositionState = rememberCameraPositionState()
+    val ctx = LocalContext.current
+
+    LaunchedEffect(Unit) {
+        runCatching {
+            LocationServices.getFusedLocationProviderClient(ctx).getCurrentLocation(
+                Priority.PRIORITY_HIGH_ACCURACY,
+                CancellationTokenSource().token
+            ).addOnSuccessListener { location ->
+                cameraPositionState.position = CameraPosition.fromLatLngZoom(
+                    LatLng(location.latitude, location.longitude),
+                    15f
+                )
+            }
+        }
+    }
+
+    LaunchedEffect(cameraPositionState.position) {
+        component.setLocation(cameraPositionState.position.target)
+    }
 
     Scaffold(
         topBar = {
@@ -98,7 +137,8 @@ fun Register(
         ) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.padding(16.dp).verticalScroll(rememberScrollState())
+                modifier = Modifier
+                    .padding(16.dp)
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
@@ -169,6 +209,26 @@ fun Register(
                             keyboardType = KeyboardType.Text
                         )
                     )
+
+                    Box(Modifier
+                        .fillMaxWidth()
+                        .height(150.dp)
+                        .clip(MaterialTheme.shapes.medium)) {
+                        GoogleMap(
+                            cameraPositionState = cameraPositionState,
+                            modifier = Modifier.fillMaxSize()
+                        )
+
+                        Box(
+                            modifier = Modifier
+                                .size(16.dp)
+                                .clip(CircleShape)
+                                .background(MaterialTheme.colorScheme.primary)
+                                .border(1.dp, MaterialTheme.colorScheme.surfaceVariant, CircleShape)
+                                .align(Alignment.Center)
+                                .shadow(4.dp)
+                        )
+                    }
                 } else {
                     OutlinedTextField(
                         value = fName,
