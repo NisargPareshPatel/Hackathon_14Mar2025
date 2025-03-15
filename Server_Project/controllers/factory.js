@@ -1,8 +1,3 @@
-import { Car } from "../models/carModel.js";
-import User from "../models/userModel.js";
-import bcrypt from "bcrypt";
-import validator from "validator";
-
 class Factory {
   static async createCar(data) {
     return await Car.create({

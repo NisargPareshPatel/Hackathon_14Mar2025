@@ -14,46 +14,46 @@
 // The routes are connected to respective controller functions
 import express from "express";
 import {
-  validateCar,
-  listCar,
-  getallCar,
-  getCar,
-  getlisterCars,
-  booked,
-  getBookedCars,
-  Unbooked,
-  deleteList,
-  getallCarbylocation,
-} from "../controllers/carController.js";
+  validateProd,
+  createProd,
+  // getallCar,
+  // getCar,
+  // getlisterCars,
+  // booked,
+  // getBookedCars,
+  // Unbooked,
+  // deleteList,
+  // getallCarbylocation,
+} from "../controllers/prodController.js";
 
 // Creating an instance of the Express Router
 const router = express.Router();
 
 // Route to list a new car (POST request with car validation)
-router.post("/list", validateCar, listCar);
+router.post("/create", validateProd, createProd);
 
-// Route to get all cars (GET request)
-router.get("/getCar", getallCar);
+// // Route to get all cars (GET request)
+// router.get("/getCar", getallCar);
 
-router.post("/getCarbylocation", getallCarbylocation);
+// router.post("/getCarbylocation", getallCarbylocation);
 
-// Route to get cars listed by the user (POST request)
-router.post("/getlisterCars", getlisterCars);
+// // Route to get cars listed by the user (POST request)
+// router.post("/getlisterCars", getlisterCars);
 
-// Route to get cars that are booked (POST request)
-router.post("/getBookedCars", getBookedCars);
+// // Route to get cars that are booked (POST request)
+// router.post("/getBookedCars", getBookedCars);
 
-// Route to mark a car as booked (PUT request)
-router.put("/booked", booked);
+// // Route to mark a car as booked (PUT request)
+// router.put("/booked", booked);
 
-// Route to mark a car as unbooked (PUT request)
-router.put("/Unbooked", Unbooked);
+// // Route to mark a car as unbooked (PUT request)
+// router.put("/Unbooked", Unbooked);
 
-// Route to delete a car listing (DELETE request)
-router.delete("/deleteList", deleteList);
+// // Route to delete a car listing (DELETE request)
+// router.delete("/deleteList", deleteList);
 
-// Route to get details of a specific car by ID (GET request)
-router.get("/:id", getCar);
+// // Route to get details of a specific car by ID (GET request)
+// router.get("/:id", getCar);
 
 // Exporting the router to be used in the main application file
 export default router;

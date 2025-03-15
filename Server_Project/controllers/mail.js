@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import observer from "./observer.js";
 import User from "../models/userModel.js";
-import { Car } from "../models/carModel.js";
+import { Car } from "../models/prodModel.js";
 class Email extends observer {
   constructor() {
     super();
