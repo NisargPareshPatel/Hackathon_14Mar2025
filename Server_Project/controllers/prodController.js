@@ -71,7 +71,11 @@ const booked = async (req, res) => {
   }
 
   try {
-    const product = await Prod.findById(id);
+    const product = await Prod.findByIdAndUpdate(
+      id,
+      { booked: true }, // Set booked to true
+      { new: true } // Return the updated document
+    );
     if (!product) return res.status(200).json({ message: "Product not found" });
     res.status(200).json(product);
   } catch (err) {
