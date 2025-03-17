@@ -34,6 +34,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.example.urhacks25.components.auth_flow.sign_in.SignInComponent
+import com.example.urhacks25.ui.util.ErrorDialog
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -45,6 +46,9 @@ fun SignIn(
     val username by component.username.subscribeAsState()
     val password by component.password.subscribeAsState()
     val asStore by component.signAsStore.subscribeAsState()
+    val error by component.error.subscribeAsState()
+
+    ErrorDialog(error, component::dismissError)
 
     Scaffold(
         topBar = {

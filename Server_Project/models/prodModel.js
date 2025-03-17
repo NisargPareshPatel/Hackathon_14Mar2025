@@ -28,10 +28,6 @@ const prodSchema = new Schema({
     type: Number,
     required: true,
   },
-  quatity: {
-    type: Number,
-    required: true,
-  },
   store_id: {
     type: String,
     required: true,
