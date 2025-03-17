@@ -26,6 +26,7 @@ const createProd = async (req, res) => {
       price: req.body.price,
       store_id: req.body.store_id,
     });
+
     res.status(200).send({ message: "Product listed successfully" });
   } catch (err) {
     console.error(err);
