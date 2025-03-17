@@ -10,9 +10,7 @@ const validateProd = [
   check("quantity").notEmpty().withMessage("Please List a Quantity"),
 ];
 
-// Handler to list a new car
 const createProd = async (req, res) => {
-  // Validate request data
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -36,7 +34,6 @@ const createProd = async (req, res) => {
   }
 };
 
-// Handler to get all cars listed by a specific lister
 const getProdbyStore = async (req, res) => {
   const sid = req.body.sid;
 
@@ -75,11 +72,7 @@ const booked = async (req, res) => {
   }
 
   try {
-    const product = await Prod.findByIdAndUpdate(
-      id,
-      { booked: true },
-      { new: true }
-    );
+    const product = await Prod.findById(id);
     if (!product) return res.status(200).json({ message: "Product not found" });
     res.status(200).json(product);
     if (product.quantity > 1) {
@@ -98,7 +91,6 @@ const booked = async (req, res) => {
   }
 };
 
-// Handler to get a specific car by ID
 const getProdbyID = async (req, res) => {
   const { id } = req.params;
 

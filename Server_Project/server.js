@@ -27,12 +27,13 @@ app.use((req, res, next) => {
   next();
 });
 
-// Set up routes for car-related operations
+// Set up routes for product-related operations
 app.use("/api/prodRoutes", prodRoutes);
 
 // Set up routes for user-related operations
 app.use("/api/userRoutes", userRoutes);
 
+// Set up routes for store-related operations
 app.use("/api/storeRoutes", storeRoutes);
 
 // Connect to MongoDB and start the server if successful
