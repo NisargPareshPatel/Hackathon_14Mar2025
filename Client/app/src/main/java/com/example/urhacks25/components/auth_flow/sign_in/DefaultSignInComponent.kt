@@ -62,12 +62,14 @@ class DefaultSignInComponent (
 
             if (signAsStore.value) {
                 apiController.storeLogin(username.value, password.value).onSuccess { r ->
+                    appSettings.id = r.id!!
                     appSettings.token = r.token!!
                     appSettings.isStore = true
                     onSuccess()
                 }
             } else {
                 apiController.userLogin(username.value, password.value).onSuccess { r ->
+                    appSettings.id = r.id!!
                     appSettings.token = r.token!!
                     appSettings.isStore = false
                     onSuccess()
