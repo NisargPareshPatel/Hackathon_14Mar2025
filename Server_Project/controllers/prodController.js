@@ -7,7 +7,6 @@ const validateProd = [
   check("photo").notEmpty().withMessage("Please add a Photo"),
   check("expiry").notEmpty().withMessage("Please List a Date"),
   check("price").notEmpty().withMessage("Please List a Price"),
-  check("quantity").notEmpty().withMessage("Please List a Quantity"),
 ];
 
 const createProd = async (req, res) => {

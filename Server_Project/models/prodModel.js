@@ -14,7 +14,7 @@ const prodSchema = new Schema({
   expiry: {
     type: Date,
     required: true,
-    index: { expires: 0 },
+    index: true,
   },
   booked: {
     type: Boolean,
@@ -34,6 +34,7 @@ const prodSchema = new Schema({
   },
 });
 
+prodSchema.index({ expiry: 1 }, { expireAfterSeconds: 0 });
 // Create a Mongoose model for the prod schema
 const prod = mongoose.model("prod", prodSchema);
 export default prod;
